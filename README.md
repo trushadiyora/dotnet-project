@@ -27,23 +27,52 @@ A modern ASP.NET Core MVC application for managing contacts with Firebase Authen
    ```
 
 2. **Firebase Setup**
-   - Create a new project in [Firebase Console](https://console.firebase.google.com/)
-   - Enable Email/Password Authentication
-   - Create a Firestore Database
-   - Download the service account key JSON file from Project Settings > Service Accounts
+   1. Create a new project in [Firebase Console](https://console.firebase.google.com/):
+      - Click "Create a project"
+      - Enter a project name
+      - Accept the terms and continue
+      - Disable Google Analytics (optional)
+      - Click "Create project"
+
+   2. Enable Authentication:
+      - In Firebase Console, go to Authentication > Get Started
+      - Click "Email/Password" under Sign-in providers
+      - Enable Email/Password authentication
+      - Click Save
+
+   3. Create Firestore Database:
+      - Go to Firestore Database > Create Database
+      - Choose "Start in test mode" for development
+      - Select a location closest to your users
+      - Click "Enable"
+
+   4. Get Service Account Credentials:
+      - Go to Project Settings (gear icon) > Service accounts
+      - Click "Generate New Private Key"
+      - Save the downloaded JSON file as `firebase-service-account.json.json` in your project root
+      - Keep this file secure and never commit it to version control
+
+   5. Get Web API Key:
+      - In Project Settings > General
+      - Copy the "Web API Key" from the project settings
 
 3. **Application Configuration**
-   - Create `appsettings.Development.json` in the root directory
-   - Add the following configuration (replace with your Firebase details):
+   1. Create `appsettings.Development.json` in the root directory:
    ```json
    {
      "Firebase": {
-       "ProjectId": "your-project-id",
-       "WebApiKey": "your-web-api-key",
-       "ServiceAccountPath": "path-to-your-service-account-json"
+       "ProjectId": "your-project-id",      // Found in Project Settings
+       "WebApiKey": "your-web-api-key",     // Found in Project Settings > General
+       "ServiceAccountPath": "firebase-service-account.json.json"  // Path to the JSON file you downloaded
      }
    }
    ```
+   
+   2. Important Security Notes:
+      - Never commit `firebase-service-account.json.json` to version control
+      - Never commit `appsettings.Development.json` to version control
+      - Both files are already in .gitignore for security
+      - Keep your API keys and service account credentials secure
 
 4. **Install Dependencies**
    ```bash
