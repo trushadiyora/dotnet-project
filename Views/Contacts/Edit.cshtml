@@ -1,0 +1,78 @@
+@model ContactManagerApp.Models.Contact
+@{
+    ViewData["Title"] = "Edit Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-container">
+    <div class="form-card">
+        <div class="form-header">
+            <h2><i class="fas fa-edit"></i> Edit Contact</h2>
+            <p>Update contact information</p>
+        </div>
+
+        <form method="post" asp-action="Edit" asp-route-id="@Model.Id" class="contact-form">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="CreatedAt" />
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="Name" class="required">
+                        <i class="fas fa-user"></i> Full Name
+                    </label>
+                    <input asp-for="Name" type="text" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Email" class="required">
+                        <i class="fas fa-envelope"></i> Email Address
+                    </label>
+                    <input asp-for="Email" type="email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="required">
+                        <i class="fas fa-phone"></i> Phone Number
+                    </label>
+                    <input asp-for="PhoneNumber" type="tel" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Address">
+                    <i class="fas fa-map-marker-alt"></i> Address <span class="optional-text">(Optional)</span>
+                </label>
+                <textarea asp-for="Address" class="form-control" rows="3" placeholder="Enter address (optional)" value=""></textarea>
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="info-box">
+                <i class="fas fa-info-circle"></i>
+                <span>Created: @Model.CreatedAt.ToLocalTime().ToString("MMM dd, yyyy hh:mm tt")</span>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Update Contact
+                </button>
+                <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">
+                    <i class="fas fa-eye"></i> View Details
+                </a>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

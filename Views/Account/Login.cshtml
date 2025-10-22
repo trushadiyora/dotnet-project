@@ -1,0 +1,57 @@
+@model ContactManagerApp.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="auth-container">
+    <div class="auth-card login-card">
+        <div class="auth-header">
+            <i class="fas fa-sign-in-alt"></i>
+            <h2>Welcome Back</h2>
+            <p>Login to manage your contacts</p>
+        </div>
+
+        <form method="post" asp-action="Login" class="auth-form">
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label asp-for="Email">
+                    <i class="fas fa-envelope"></i> Email Address
+                </label>
+                <input asp-for="Email" type="email" class="form-control" placeholder="Enter your email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password">
+                    <i class="fas fa-lock"></i> Password
+                </label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-remember">
+                <input asp-for="RememberMe" /> <label asp-for="RememberMe">Remember me</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+
+            <div class="auth-links">
+                <a asp-action="ForgotPassword" class="forgot-link">
+                    <i class="fas fa-key"></i> Forgot Password?
+                </a>
+                <span>Don't have an account?</span>
+                <a asp-action="Register" class="register-link">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

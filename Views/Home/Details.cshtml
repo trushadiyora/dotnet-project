@@ -1,0 +1,85 @@
+@model ContactManagerApp.Models.Contact
+@{
+    ViewData["Title"] = "Contact Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="details-container">
+    <div class="details-card">
+        <div class="details-header">
+            <div class="avatar-large">
+                @Model.Name.Substring(0, 1).ToUpper()
+            </div>
+            <h1>@Model.Name</h1>
+        </div>
+
+        <div class="details-body">
+            <div class="detail-item">
+                <div class="detail-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="detail-content">
+                    <label>Email Address</label>
+                    <a href="mailto:@Model.Email">@Model.Email</a>
+                </div>
+            </div>
+
+            <div class="detail-item">
+                <div class="detail-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <div class="detail-content">
+                    <label>Phone Number</label>
+                    <a href="tel:@Model.PhoneNumber">@Model.PhoneNumber</a>
+                </div>
+            </div>
+
+
+
+            @if (!string.IsNullOrEmpty(Model.Address))
+            {
+                <div class="detail-item">
+                    <div class="detail-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="detail-content">
+                        <label>Address</label>
+                        <p>@Model.Address</p>
+                    </div>
+                </div>
+            }
+
+            <div class="detail-item">
+                <div class="detail-icon">
+                    <i class="fas fa-calendar-plus"></i>
+                </div>
+                <div class="detail-content">
+                    <label>Created Date</label>
+                    <p>@Model.CreatedAt.ToLocalTime().ToString("MMMM dd, yyyy hh:mm tt")</p>
+                </div>
+            </div>
+
+            <div class="detail-item">
+                <div class="detail-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="detail-content">
+                    <label>Last Updated</label>
+                    <p>@Model.UpdatedAt.ToLocalTime().ToString("MMMM dd, yyyy hh:mm tt")</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="details-actions">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">
+                <i class="fas fa-edit"></i> Edit Contact
+            </a>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
+                <i class="fas fa-trash"></i> Delete Contact
+            </a>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+</div>

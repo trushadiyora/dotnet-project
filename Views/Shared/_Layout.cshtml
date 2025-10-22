@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Contact Manager</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a class="nav-brand" href="@Url.Action("Index", "Contacts")">
+                <i class="fas fa-address-book"></i>
+                Contact Manager
+            </a>
+            
+            @if (Context.Session.GetString("UserId") != null)
+            {
+                <div class="nav-menu">
+                    <span class="nav-user">
+                        <i class="fas fa-user-circle"></i>
+                        @(Context.Session.GetString("UserName") ?? Context.Session.GetString("UserEmail"))
+                    </span>
+                    <a href="@Url.Action("Index", "Contacts")" class="nav-link">
+                        <i class="fas fa-list"></i> Contacts
+                    </a>
+                    <a href="@Url.Action("Profile", "Account")" class="nav-link">
+                        <i class="fas fa-user"></i> Profile
+                    </a>
+                    <form method="post" action="@Url.Action("Logout", "Account")" style="display: inline;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn-logout">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </form>
+                </div>
+            }
+        </div>
+    </nav>
+
+    <main class="main-container">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i>
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+        @RenderBody()
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Contact Manager. All rights reserved.</p>
+    </footer>
+
+    <script src="~/js/site.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

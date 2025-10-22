@@ -1,0 +1,68 @@
+@model ContactManagerApp.Models.Contact
+@{
+    ViewData["Title"] = "Add New Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-container">
+    <div class="form-card">
+        <div class="form-header">
+            <h2><i class="fas fa-user-plus"></i> Add New Contact</h2>
+            <p>Fill in the details to create a new contact</p>
+        </div>
+
+        <form method="post" asp-action="Create" class="contact-form">
+            @Html.AntiForgeryToken()
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="Name" class="required">
+                        <i class="fas fa-user"></i> Full Name
+                    </label>
+                    <input asp-for="Name" type="text" class="form-control" placeholder="Enter full name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Email" class="required">
+                        <i class="fas fa-envelope"></i> Email Address
+                    </label>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="example@email.com" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="required">
+                        <i class="fas fa-phone"></i> Phone Number
+                    </label>
+                    <input asp-for="PhoneNumber" type="tel" class="form-control" placeholder="+1234567890" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Address">
+                    <i class="fas fa-map-marker-alt"></i> Address
+                </label>
+                <textarea asp-for="Address" class="form-control" rows="3" placeholder="Enter address (optional)"></textarea>
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save Contact
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

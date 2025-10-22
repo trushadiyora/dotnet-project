@@ -1,0 +1,64 @@
+@model ContactManagerApp.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <i class="fas fa-user-plus"></i>
+            <h2>Create Account</h2>
+            <p>Join us to manage your contacts</p>
+        </div>
+
+        <form method="post" asp-action="Register" class="auth-form">
+            @Html.AntiForgeryToken()
+            
+            <div class="form-group">
+                <label asp-for="DisplayName">
+                    <i class="fas fa-user"></i> Full Name
+                </label>
+                <input asp-for="DisplayName" type="text" class="form-control" placeholder="Enter your full name" />
+                <span asp-validation-for="DisplayName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email">
+                    <i class="fas fa-envelope"></i> Email Address
+                </label>
+                <input asp-for="Email" type="email" class="form-control" placeholder="Enter your email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password">
+                    <i class="fas fa-lock"></i> Password
+                </label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Create a password (min 6 characters)" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ConfirmPassword">
+                    <i class="fas fa-lock"></i> Confirm Password
+                </label>
+                <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm your password" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">
+                <i class="fas fa-user-plus"></i> Create Account
+            </button>
+
+            <div class="auth-links">
+                <span>Already have an account?</span>
+                <a asp-action="Login">Login Here</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,102 @@
+@model IEnumerable<ContactManagerApp.Models.Contact>
+@{
+    ViewData["Title"] = "My Contacts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="contacts-container">
+    <div class="contacts-header">
+        <div class="header-left">
+            <h1><i class="fas fa-address-book"></i> My Contacts</h1>
+            <p class="contacts-count">Total Contacts: <strong>@Model.Count()</strong></p>
+        </div>
+        <div class="header-right">
+            <a asp-action="Create" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add New Contact
+            </a>
+        </div>
+    </div>
+
+    <div class="search-box">
+        <form method="get" asp-action="Index" class="search-form">
+            <div class="search-input-group">
+                <i class="fas fa-search"></i>
+                <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" 
+                       placeholder="Search by name, email, or phone..." class="search-input" />
+                <button type="submit" class="btn btn-search">Search</button>
+                @if (!string.IsNullOrEmpty(ViewBag.SearchTerm))
+                {
+                    <a asp-action="Index" class="btn btn-clear">Clear</a>
+                }
+            </div>
+        </form>
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="contacts-grid">
+            @foreach (var contact in Model)
+            {
+                <div class="contact-card">
+                    <div class="contact-card-header">
+                        <div class="contact-avatar">
+                            @contact.Name.Substring(0, 1).ToUpper()
+                        </div>
+                        <div class="contact-info">
+                            <h3 class="contact-name">@contact.Name</h3>
+                            <p class="contact-detail">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:@contact.Email">@contact.Email</a>
+                            </p>
+                            <p class="contact-detail">
+                                <i class="fas fa-phone"></i>
+                                <a href="tel:@contact.PhoneNumber">@contact.PhoneNumber</a>
+                            </p>
+
+                            @if (!string.IsNullOrEmpty(contact.Address))
+                            {
+                                <p class="contact-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    @contact.Address
+                                </p>
+                            }
+                        </div>
+                    </div>
+                    <div class="contact-actions">
+                        <a asp-action="Details" asp-route-id="@contact.Id" class="btn btn-icon btn-info" title="View Details">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                        <a asp-action="Edit" asp-route-id="@contact.Id" class="btn btn-icon btn-success" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@contact.Id" class="btn btn-icon btn-danger" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
+                    <div class="contact-date">
+                        <small><i class="fas fa-clock"></i> Added: @contact.CreatedAt.ToLocalTime().ToString("MMM dd, yyyy")</small>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <i class="fas fa-address-book"></i>
+            <h2>No Contacts Found</h2>
+            @if (!string.IsNullOrEmpty(ViewBag.SearchTerm))
+            {
+                <p>No contacts match your search criteria.</p>
+                <a asp-action="Index" class="btn btn-primary">View All Contacts</a>
+            }
+            else
+            {
+                <p>Start by adding your first contact!</p>
+                <a asp-action="Create" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Contact
+                </a>
+            }
+        </div>
+    }
+</div>
