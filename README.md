@@ -67,8 +67,8 @@ A modern ASP.NET Core MVC application for managing contacts with Firebase Authen
        "WebApiKey": "your-web-api-key",     // Found in Project Settings > General
        "ServiceAccountPath": "firebase-service-account.json.json"  // Path to the JSON file you downloaded
      }
-   }
-   ```
+   }```
+   
    2. Important Security Notes:
       - Never commit `firebase-service-account.json.json` to version control
       - Never commit `appsettings.Development.json` to version control
