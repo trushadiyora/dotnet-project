@@ -58,7 +58,8 @@ A modern ASP.NET Core MVC application for managing contacts with Firebase Authen
 
 3. **Application Configuration**
    1. Create `appsettings.Development.json` in the root directory:
-   ```json
+   ```
+   json
   }
    {
      "Firebase": {
